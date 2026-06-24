@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feid After Party — Vista Previa</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #1a1a1a;
+    font-family: system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 20px;
+  }
+  .header {
+    text-align: center;
+    margin-bottom: 30px;
+    width: 100%;
+    max-width: 700px;
+  }
+  .header h1 {
+    font-size: 20px;
+    color: #39ff88;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+  .header p {
+    color: #666;
+    font-size: 13px;
+  }
+  .device-frame {
+    background: #000;
+    border-radius: 40px;
+    padding: 12px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 0 1px #333, 0 0 0 2px #222;
+    max-width: 420px;
+    width: 100%;
+  }
+  .device-screen {
+    background: #0a0a0a;
+    border-radius: 28px;
+    overflow: hidden;
+    position: relative;
+  }
+  .status-bar {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 20px 8px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    background: #0a0a0a;
+  }
+  .email-app-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 16px;
+    background: #0d0d0d;
+    border-bottom: 1px solid #1a1a1a;
+  }
+  .email-app-bar .back {
+    color: #39ff88;
+    font-size: 22px;
+    text-decoration: none;
+  }
+  .email-app-bar .title {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .email-app-bar .actions {
+    color: #39ff88;
+    font-size: 18px;
+  }
+  .email-header {
+    padding: 16px 16px 12px;
+    border-bottom: 1px solid #1a1a1a;
+    background: #0d0d0d;
+  }
+  .email-header .from {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .email-header .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #39ff88;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 14px;
+    margin-right: 10px;
+    flex-shrink: 0;
+  }
+  .email-header .from-info {
+    flex: 1;
+  }
+  .email-header .from-name {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .email-header .from-email {
+    color: #666;
+    font-size: 12px;
+  }
+  .email-header .time {
+    color: #666;
+    font-size: 11px;
+  }
+  .email-header .subject {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 4px;
+  }
+  .email-header .preview-line {
+    color: #666;
+    font-size: 13px;
+    margin-top: 2px;
+  }
+  .email-body {
+    padding: 0;
+  }
+
+  /* Email content styles */
+  .email-content {
+    background: #0a0a0a;
+  }
+  .email-content .hero-img {
+    width: 100%;
+    display: block;
+  }
+  .email-content .section {
+    padding: 30px 24px 20px;
+    text-align: center;
+  }
+  .email-content .label {
+    font-size: 11px;
+    color: #39ff88;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .email-content h1 {
+    font-size: 40px;
+    color: #fff;
+    font-weight: 900;
+    letter-spacing: -2px;
+    line-height: 1;
+  }
+  .email-content .subtitle {
+    font-size: 17px;
+    color: #39ff88;
+    font-weight: 300;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-top: 8px;
+  }
+  .email-content .desc {
+    font-size: 13px;
+    color: #888;
+    line-height: 1.6;
+    margin-top: 16px;
+  }
+  .email-content .divider {
+    height: 1px;
+    margin: 0 24px;
+    background: linear-gradient(90deg, transparent, #39ff88, transparent);
+  }
+  .email-content .dates {
+    padding: 24px;
+  }
+  .city-card {
+    display: flex;
+    align-items: center;
+    background: #111;
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 10px;
+    border: 1px solid #1a1a1a;
+  }
+  .city-card .accent {
+    width: 6px;
+    min-height: 50px;
+    background: #39ff88;
+    border-radius: 4px;
+    margin-right: 14px;
+    flex-shrink: 0;
+  }
+  .city-card .info { flex: 1; }
+  .city-card .city-name {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 800;
+  }
+  .city-card .city-date {
+    color: #666;
+    font-size: 11px;
+    margin-top: 2px;
+  }
+  .city-card .btn {
+    background: #39ff88;
+    color: #000;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 11px;
+    padding: 10px 18px;
+    border-radius: 6px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+  .email-content .warning {
+    margin: 0 24px 24px;
+    padding: 16px;
+    border: 1px solid #1a3a2a;
+    border-radius: 8px;
+    text-align: center;
+  }
+  .email-content .warning .warn-label {
+    color: #39ff88;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+  }
+  .email-content .warning .warn-text {
+    color: #888;
+    font-size: 11px;
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+  .email-content .cta-section {
+    background: #050505;
+    text-align: center;
+    padding: 32px 24px;
+  }
+  .email-content .cta-label {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .email-content .cta-btn {
+    display: inline-block;
+    background: #39ff88;
+    color: #000;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 14px;
+    padding: 14px 40px;
+    border-radius: 8px;
+    letter-spacing: 1px;
+  }
+  .email-content .footer {
+    text-align: center;
+    padding: 16px 24px;
+    background: #000;
+  }
+  .email-content .footer p {
+    color: #333;
+    font-size: 9px;
+    line-height: 1.6;
+  }
+  @media (max-width: 480px) {
+    .device-frame { border-radius: 24px; padding: 8px;}
+    .device-screen { border-radius: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>📱 Vista Previa</h1>
+  <p>Así se ve el email en un iPhone</p>
+</div>
+
+<div class="device-frame">
+  <div class="device-screen">
+
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <span>9:41</span>
+      <span>📶 🔋</span>
+    </div>
+
+    <!-- Mail App -->
+    <div class="email-app-bar">
+      <span class="back">‹</span>
+      <span class="title">Correo</span>
+      <span class="actions">⋯</span>
+    </div>
+
+    <!-- Email Header -->
+    <div class="email-header">
+      <div class="from">
+        <div class="avatar">LF</div>
+        <div class="from-info">
+          <div class="from-name">La Fama Events</div>
+          <div class="from-email">info@lafamabarber.com</div>
+        </div>
+        <div class="time">9:41</div>
+      </div>
+      <div class="subject">🔥 FEID AFTER — Sydney, Melbourne, Brisbane</div>
+      <div class="preview-line">El after party oficial de Feid en Australia. Conseguí tus tickets...</div>
+    </div>
+
+    <!-- Email Body -->
+    <div class="email-body">
+      <div class="email-content">
+
+        <!-- Hero Image -->
+        <img src="https://la-fama-emails.vercel.app/emails/feid-after-flyer.jpg" alt="Feid After Party" class="hero-img" onerror="this.style.display='none'">
+
+        <!-- Hero Text -->
+        <div class="section">
+          <div class="label">✦ OFFICIAL AFTER PARTY ✦</div>
+          <h1>FEID<br>AFTER</h1>
+          <div class="subtitle">IS OFFICIAL</div>
+          <div class="desc">
+            La fiesta post-concierto más esperada llega a Australia.<br>
+            <strong style="color:#fff;">Viví la experiencia Ferxxo</strong> en vivo después del show.
+          </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="divider"></div>
+
+        <!-- Dates -->
+        <div class="dates">
+
+          <div class="city-card">
+            <div class="accent"></div>
+            <div class="info">
+              <div class="city-name">SYDNEY</div>
+              <div class="city-date">SÁB · 28 JUNIO</div>
+            </div>
+            <a href="#" class="btn">TICKETS →</a>
+          </div>
+
+          <div class="city-card">
+            <div class="accent"></div>
+            <div class="info">
+              <div class="city-name">MELBOURNE</div>
+              <div class="city-date">DOM · 29 JUNIO</div>
+            </div>
+            <a href="#" class="btn">TICKETS →</a>
+          </div>
+
+          <div class="city-card">
+            <div class="accent"></div>
+            <div class="info">
+              <div class="city-name">BRISBANE</div>
+              <div class="city-date">MAR · 1 JULIO</div>
+            </div>
+            <a href="#" class="btn">TICKETS →</a>
+          </div>
+
+        </div>
+
+        <!-- Warning -->
+        <div class="warning">
+          <div class="warn-label">⚠️ ENTRADAS LIMITADAS</div>
+          <div class="warn-text">Capacidad reducida. El after party del año se va a llenar — no te quedes afuera.</div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-section">
+          <div class="cta-label">Asegurá tu lugar 🔥</div>
+          <a href="#" class="cta-btn">COMPRAR TICKETS</a>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+          <p>
+            La Fama · Feid After Party Australia<br>
+            Sydney · Melbourne · Brisbane<br>
+            <a href="#" style="color:#555;text-decoration:underline;">Cancelar suscripción</a>
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<p style="color:#555;font-size:12px;margin-top:24px;text-align:center;">
+  Recordá cambiar los <code style="color:#39ff88;">href="#"</code> por los links reales de tickets
+</p>
+
+</body>
+</html>
